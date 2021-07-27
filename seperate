@@ -1,0 +1,55 @@
+import 'package:flutter/material.dart';
+
+class FlexibleWidgetStuff extends StatefulWidget {
+  final String text;
+  final Function onEditingComplete;
+  final TextEditingController textEditingController;
+
+  const FlexibleWidgetStuff({
+    Key? key,
+    required this.text,
+    required this.onEditingComplete,
+    required this.textEditingController,
+  }) : super(key: key);
+
+  @override
+  _FlexibleWidgetStuffState createState() => _FlexibleWidgetStuffState();
+}
+
+class _FlexibleWidgetStuffState extends State<FlexibleWidgetStuff> {
+  late String textValue;
+
+  @override
+  void initState() {
+    super.initState();
+
+    textValue = widget.text;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey.shade100,
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: TextField(
+          //  maxLines: 3,
+          maxLines: 1,
+          textAlign: TextAlign.center,
+          decoration: InputDecoration(border: InputBorder.none),
+          onChanged: (value) => setState(() {
+            textValue = value;
+          }),
+          onEditingComplete: () => widget.onEditingComplete(),
+          controller: widget.textEditingController,
+          style: TextStyle(
+            fontSize: 16.0,
+          ),
+        ),
+      ),
+    );
+  }
+}
